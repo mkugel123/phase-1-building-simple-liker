@@ -23,3 +23,34 @@ function mimicServerCall(url="http://mimicServer.example.com", config={}) {
     }, 300);
   });
 }
+
+function likeAndUnlike(){
+  const unlikedButtons = document.querySelectorAll(".like-glyph")
+  for (const unlikedButton of unlikedButtons){
+    unlikedButton.addEventListener("click", e => {
+      const heart = e.target
+      const errorAlert = document.getElementById("modal")
+      if(heart.className === "like-glyph"){
+        mimicServerCall()
+        .then(()=> {
+          heart.textContent = "♥"
+          heart.className = "activated-heart"
+        })
+        .catch(()=> {
+          errorAlert.className = ""
+          setTimeout(()=>{errorAlert.className = "hidden"}, 3000)
+        })
+      } else{
+        heart.textContent = "♡"
+        heart.className = "like-glyph"
+      }  
+    })
+  }
+}
+
+
+
+likeAndUnlike()
+
+
+
